@@ -1,70 +1,89 @@
-# Getting Started with Create React App
+# Styled-components
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```shell
+$ npm install styled-components styled-reset
+```
 
-## Available Scripts
+## Preview
 
-In the project directory, you can run:
+![styled-components](https://user-images.githubusercontent.com/118904460/204458130-d5f492c3-b2fe-466b-a544-9effd97a5f88.gif)
 
-### `npm start`
+## Code Preview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### src/styles/GlobalStyle.js
+```javascript
+import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const GlobalStyle = createGlobalStyle`
+${reset}
 
-### `npm test`
+* {
+    box-sizing: border-box;
+}
+`;
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+export default GlobalStyle;
+```
 
-### `npm run build`
+### src/styles/theme.js
+```javascript
+export const theme = {
+  black: '#000000',
+  white: '#FFFFFF',
+  lightGrey: '#B0B0B0',
+  middleGrey: '#717171',
+  deepGrey: '#222222',
+  hoverGrey: '#DBDBDB',
+  blue: '#2E86C1',
+  red: '#F1341A',
+};
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### src/index.js
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { ThemeProvider } from 'styled-components';
+import Router from './Router';
+import { theme } from './styles/theme';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <ThemeProvider theme={theme}>
+    <Router />
+  </ThemeProvider>
+);
 
-### `npm run eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### src/App.js
+```javascript
+import { useState } from 'react';
+import * as S from './App.Style.js';
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+function App() {
+  const [isValid, setIsValid] = useState(false);
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  return (
+    <div className="App">
+      <S.Header value={isValid}>{isValid ? 'RED' : 'BLUE'}</S.Header>
+      <button onClick={() => setIsValid(!isValid)}>색깔변경</button>
+    </div>
+  );
+}
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+export default App;
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### src/App.style.js
+```javascript
+import styled from 'styled-components';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export const Header = styled.h1`
+  color: ${({ value, theme }) => (value ? theme.red : theme.blue)};
+`;
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
