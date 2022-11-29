@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import styled from 'styled-components';
 
 function App() {
+  const [isValid, setIsValid] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header value={isValid}>{isValid ? 'RED' : 'BLUE'}</Header>
+      <button onClick={() => setIsValid(!isValid)}>색깔변경</button>
     </div>
   );
 }
 
 export default App;
+
+const Header = styled.h1`
+  color: ${({ value, theme }) => (value ? theme.red : theme.blue)};
+`;
