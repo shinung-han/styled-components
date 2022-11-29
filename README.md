@@ -6,7 +6,7 @@ $ npm install styled-components styled-reset
 
 ## Preview
 
-![styled-components](https://user-images.githubusercontent.com/118904460/204458130-d5f492c3-b2fe-466b-a544-9effd97a5f88.gif)
+![styled-components](https://user-images.githubusercontent.com/118904460/204459519-a23cd7fa-a99e-4a9e-a3c0-95474821baaa.gif)
 
 ## Code Preview
 
